@@ -1,0 +1,22 @@
+﻿@model CumulativePart1.Models.Classes
+@{
+    ViewBag.Title = "Show";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Classes</title>
+</head>
+<body>
+    <a class="navlink" href="/Classes/List">Back To Classes</a>
+    <div id="containershow">
+        <h2>@Model.classcode @Model.classname</h2>
+        <p>ClassId = @Model.classid</p>
+        <p>Start date: @Model.startdate</p>
+        <p>Finish date: @Model.finishdate</p>
+    </div>
+</body>
+</html>

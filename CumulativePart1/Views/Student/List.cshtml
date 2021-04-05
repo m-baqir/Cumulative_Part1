@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CumulativePart1.Models.Student>
+@{
+    ViewBag.title = "List";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h2>List</h2>
+    <p>This page should be showing information about all Students</p>
+    <div id="container_list">
+        <h2>List of Students</h2>
+        @foreach (var student in Model)
+        {
+            <div class="listitem row">
+                <div class="col-md-12"><a href="/Student/Show/@student.studentid">@student.studentfname @student.studentlname</a></div>
+            </div>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CumulativePart1.Models.Classes>
+@{
+    ViewBag.title = "List";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <h2>List</h2>
+    <p>This page should be showing information about all Classes</p>
+    <div id="container_list">
+        <h2>List of Classes</h2>
+        @foreach (var classes in Model)
+        {
+            <div class="listitem row">
+                <div class="col-md-12"><a href="/CLasses/Show/@classes.classid">@classes.classcode @classes.classname</a></div>
+            </div>
+        }
+    </div>
+</body>
+</html>
