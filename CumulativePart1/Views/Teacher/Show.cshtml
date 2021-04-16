@@ -3,18 +3,13 @@
     ViewBag.Title = "Show";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>first attempt</title>
-</head>
-<body>
-    <a class="navlink" href="/Teacher/List">Back To Teachers</a>
     <div id="containershow">
+        <nav>
+            <a class="navlink" href="/Teacher/List">Back To Teachers</a>
+            <a class="dellink" href="/Teacher/DeleteConfirm/@Model.teacherid">Delete</a>
+        </nav>
         <h2>@Model.teacherfname @Model.teacherlname</h2>
         <p>TeacherId = @Model.teacherid Hire date: @Model.hiredate</p>
     </div>
-</body>
-</html>
+    

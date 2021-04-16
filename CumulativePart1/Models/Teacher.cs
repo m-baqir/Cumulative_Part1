@@ -12,5 +12,9 @@ namespace CumulativePart1.Models
         public string teacherfname;
         public string teacherlname;
         public string hiredate;
+
+        public Teacher() { }
     }
+
+
 }

@@ -11,10 +11,17 @@
     <title></title>
 </head>
 <body>
+    <nav>
+        <a class="navlink" href="/Teacher/New">New Teacher</a>
+    </nav>
     <h2>List</h2>
     <p>This page should be showing information about all Teachers</p>
     <div id="container_list">
         <h2>List of Teachers</h2>
+        <form action="/Teacher/List" method="GET">
+            <input type="text" name="SearchKey" autocomplete="off" />
+            <input type="submit" value="Search" />
+        </form>
         @foreach (var teacher in Model)
         {
             <div class="listitem row">
