@@ -32,10 +32,10 @@ namespace CumulativePart1.Controllers
             //instantiating a new controller
             TeacherDataController controller = new TeacherDataController();
             //creating newteacher object with the findteacher function
-            Teacher NewTeacher = controller.FindTeacher(id);
+            Teacher SelectedTeacher = controller.FindTeacher(id);
 
             //return newteacher object to show view
-            return View(NewTeacher);
+            return View(SelectedTeacher);
         }
         // GET : /Teacher/DeleteConfirm/{id}
         public ActionResult DeleteConfirm(int id)
@@ -66,7 +66,7 @@ namespace CumulativePart1.Controllers
 
         //POST : /Teacher/Create
         [HttpPost]
-        public ActionResult Create(string teacherfname, string teacherlname, string hiredate)
+        public ActionResult Create(string teacherfname, string teacherlname, DateTime hiredate)
         {
             Debug.WriteLine("I have create");
             Debug.WriteLine(teacherfname);
@@ -81,6 +81,44 @@ namespace CumulativePart1.Controllers
             TeacherDataController controller = new TeacherDataController();
             controller.CreateTeacher(NewTeacher);
             return RedirectToAction("List");
+        }
+        /// <summary>
+        /// Routes Teacher Update Page. Displays information from the database.
+        /// </summary>
+        /// <param>Id of the teacher</param>
+        /// <returns>an update teacher webpage which displays current information and asks for new information</returns>
+        /// <example>GET : /Teacher/Update/5</example>
+        public ActionResult Update(int id)
+        {
+            //new data controller initiated
+            TeacherDataController controller = new TeacherDataController();
+            //returns teacher information from FindTeacher method
+            Teacher SelectedTeacher = controller.FindTeacher(id);
+            
+            return View(SelectedTeacher);
+        }
+
+        /// <summary>
+        /// gets a post request from user with updated teacher information
+        /// </summary>
+        /// <param name="id">of teacher to update</param>
+        /// <param name="teacherfname"> teacher first name</param>
+        /// <param name="teacherlname"> teacher last name</param>
+        /// <param name="hiredate">hire date</param>
+        /// <returns>a webpage with current teacher information and allows new information to be submitted</returns>
+        [HttpPost]
+        public ActionResult Update(int id, string teacherfname, string teacherlname, DateTime hiredate)
+        {
+            //new teacher object
+            Teacher TeacherInfo = new Teacher();
+            TeacherInfo.teacherfname = teacherfname;
+            TeacherInfo.teacherlname = teacherlname;
+            TeacherInfo.hiredate = hiredate;
+            //calls the teacher data controller
+            TeacherDataController controller = new TeacherDataController();
+            controller.UpdateTeacher(id, TeacherInfo);
+            //returns to the particular teacher info page
+            return RedirectToAction("Show/" + id);
         }
     }
 }

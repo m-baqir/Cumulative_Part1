@@ -11,7 +11,7 @@ namespace CumulativePart1.Models
         public int teacherid;
         public string teacherfname;
         public string teacherlname;
-        public string hiredate;
+        public DateTime hiredate;
 
         public Teacher() { }
     }

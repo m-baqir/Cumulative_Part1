@@ -51,7 +51,7 @@ namespace CumulativePart1.Controllers
                     int TeacherId = (int)ResultSet["teacherid"];
                     string TeacherFname = ResultSet["teacherfname"].ToString();
                     string TeacherLname = ResultSet["teacherlname"].ToString();
-                    string HireDate = ResultSet["hiredate"].ToString();
+                    DateTime HireDate = (DateTime)ResultSet["hiredate"];
 
                     // assign teacher data to newteacher
                     Teacher NewTeacher = new Teacher();
@@ -107,7 +107,7 @@ namespace CumulativePart1.Controllers
                 int teacherid = (int)ResultSet["teacherid"];
                 string teacherfname = ResultSet["teacherfname"].ToString();
                 string teacherlname = ResultSet["teacherlname"].ToString();
-                string hiredate = ResultSet["hiredate"].ToString();
+                DateTime hiredate = (DateTime)ResultSet["hiredate"];
 
                 //assign teacher data to newteacher object
                 NewTeacher.teacherid = teacherid;
@@ -167,9 +167,9 @@ namespace CumulativePart1.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "insert into teachers (teacherfname,teacherlname,hiredate) values (@authorfname,@authorlname,@hiredate)";
-            cmd.Parameters.AddWithValue("@authorfname", NewTeacher.teacherfname);
-            cmd.Parameters.AddWithValue("@authorlname", NewTeacher.teacherlname);
+            cmd.CommandText = "insert into teachers (teacherfname,teacherlname,hiredate) values (@teacherfname,@teacherlname,@hiredate)";
+            cmd.Parameters.AddWithValue("@teacherfname", NewTeacher.teacherfname);
+            cmd.Parameters.AddWithValue("@teacherlname", NewTeacher.teacherlname);
             cmd.Parameters.AddWithValue("@hiredate", NewTeacher.hiredate);
             cmd.Prepare();
             
@@ -177,6 +177,32 @@ namespace CumulativePart1.Controllers
             //close database connection
             Conn.Close();
         }
+        /// <summary>
+        /// Updates an author on the MySQL database
+        /// </summary>
+        /// <param TeacherInfo object </param>
+        /// POST api/TeacherData/UpdateTeacher/1
+        [HttpPost]
+        public void UpdateTeacher (int id, [FromBody]Teacher TeacherInfo)
+        {
+            //create instance of a connection
+            MySqlConnection Conn = schooldb.AccessDatabase();
 
+            //open connection between web server and database
+            Conn.Open();
+
+            //establish a new command for the database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "update teachers set teacherfname=@teacherfname, teacherlname=@teacherlname, hiredate=@hiredate where teacherid=@teacherid";
+            cmd.Parameters.AddWithValue("@teacherfname", TeacherInfo.teacherfname);
+            cmd.Parameters.AddWithValue("@teacherlname", TeacherInfo.teacherlname);
+            cmd.Parameters.AddWithValue("@hiredate", TeacherInfo.hiredate);
+            cmd.Parameters.AddWithValue("@teacherid", id);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            Conn.Close();
+        }
     }
 }
